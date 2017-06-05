@@ -27,6 +27,7 @@ app.on('ready', function () {
 ipcMain.on('rename', function (event, data) {
     let files = data.files;
     let newName = data.name;
+    let counter = data.numbering;
 
     for (let i = 0; i < files.length; i++) {
         let oldName = path.basename(files[i]);
@@ -38,8 +39,9 @@ ipcMain.on('rename', function (event, data) {
         }
 
         let filePath = path.dirname(files[i]);
-        let renamedFile = filePath + slash + newName + (i + 1) + "." + nae.extension;
+        let renamedFile = filePath + slash + newName + (counter) + "." + nae.extension;
         fs.rename(files[i], renamedFile);
+        counter++;
     }
 });
 
